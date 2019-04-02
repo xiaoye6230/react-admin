@@ -1,30 +1,52 @@
 import React, { Component } from 'react';
 import {
-    Form, Icon, Input, Button,
+    Form, Icon, Input, Button, message
 } from 'antd';
+
+import { reqLogin } from '../../api';
 
 import image from './logo.png';
 import './logo.less';
 
 const Item = Form.Item;
 
+//装饰器目的：简化使用高阶组件
 @Form.create()
-class Logo extends Component {
+class Login extends Component {
     login = (e) => {
         e.preventDefault();
+        this.props.form.validateFields(async (err, values) => {
+            if (!err) {
+                // console.log(values);
+                const { username, password } = values;
+                const result = await reqLogin(username, password);
+                if (result.status === 0) {
+                    message.success('登录成功');
+                    this.props.history.replace('/');
+                } else {
+                    message.success(result.msg, 2);
+                }
+            } else {
+                console.log('---表单校验失败---');
+                console.log(err);
+                console.log('---表单校验失败---');
+            }
+        })
     }
+
+    //自定义表单校验规则
     validator = (rule, value, callback) => {
         const length = value && value.length;
         const pwdReg = /^[a-zA-Z0-9_]+$/;
-        if(!value){
+        if (!value) {
             callback(`必须输入密码`);
-        }else if(length < 4){
+        } else if (length < 4) {
             callback('密码必须大于4位');
-        }else if(length > 12){
+        } else if (length > 12) {
             callback('密码必须小于12位');
-        }else if(!pwdReg.test(value)){
+        } else if (!pwdReg.test(value)) {
             callback('密码必须是英文、数组或下划线组成');
-        }else{
+        } else {
             callback();
         }
     }
@@ -67,11 +89,11 @@ class Logo extends Component {
                             )} */}
                             {getFieldDecorator('password', {
                                 rules: [
-                                    {validator: this.validator}
+                                    { validator: this.validator }
                                 ]
                             })(
                                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
-                            )} 
+                            )}
                         </Item>
                         <Item>
                             <Button type="primary" htmlType="submit" className="logo-form-button">
@@ -85,4 +107,4 @@ class Logo extends Component {
     }
 }
 // Form.create({ name: 'normal_login' })(Logo)
-export default Logo;
+export default Login;
