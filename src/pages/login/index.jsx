@@ -4,8 +4,9 @@ import {
 } from 'antd';
 
 import { reqLogin } from '../../api';
+import { setItem } from '../../utils/storage-utils';
 
-import image from './logo.png';
+import image from '../../assets/images/logo.png';
 import './logo.less';
 
 const Item = Form.Item;
@@ -18,11 +19,14 @@ class Login extends Component {
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 // console.log(values);
+                //校验成功
                 const { username, password } = values;
                 const result = await reqLogin(username, password);
                 if (result.status === 0) {
                     message.success('登录成功');
-                    this.props.history.replace('/');
+                    //保存用户数据
+                    setItem(result.data);
+                    this.props.history.replace('/home');
                 } else {
                     message.success(result.msg, 2);
                 }
@@ -54,14 +58,14 @@ class Login extends Component {
         console.log(this.props.form)
         const { getFieldDecorator } = this.props.form;
         return (
-            <div className='logo'>
-                <header className='logo-header'>
+            <div className='login'>
+                <header className='login-header'>
                     <img src={image} alt="logo" />
                     <h2>React后台登录管理项目</h2>
                 </header>
-                <section className='logo-content'>
+                <section className='login-content'>
                     <h3>用户登录</h3>
-                    <Form onSubmit={this.login} className="logo-form">
+                    <Form onSubmit={this.login} className="login-form">
                         <Item>
                             {getFieldDecorator('username', {
                                 rules: [{
@@ -96,7 +100,7 @@ class Login extends Component {
                             )}
                         </Item>
                         <Item>
-                            <Button type="primary" htmlType="submit" className="logo-form-button">
+                            <Button type="primary" htmlType="submit" className="login-form-button">
                                 登录
                             </Button>
                         </Item>
