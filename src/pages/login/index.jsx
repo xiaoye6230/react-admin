@@ -26,7 +26,7 @@ class Login extends Component {
                     message.success('登录成功');
                     //保存用户数据
                     setItem(result.data);
-                    this.props.history.replace('/home');
+                    this.props.history.replace('/');
                 } else {
                     message.success(result.msg, 2);
                 }

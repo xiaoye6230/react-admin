@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import {
-  Layout
-} from 'antd';
+import { Layout } from 'antd';
 
-import { getItem } from '../../utils/storage-utils';
-import memory from '../../utils/memory-utils';
-import LeftNav from '../../components/left-nav';
 import Home from '../home';
 import Category from '../category';
 import Product from '../product';
@@ -16,7 +11,10 @@ import Bar from '../charts/bar';
 import Line from '../charts/line';
 import Pie from '../charts/pie';
 import HeadMain from '../../components/head-main';
+import LeftNav from '../../components/left-nav';
+import { getItem } from '../../utils/storage-utils';
 import { relative } from 'path';
+import memory from '../../utils/memory-utils';
 
 const {
   Header, Content, Footer, Sider,
@@ -32,12 +30,11 @@ export default class Admin extends Component {
 
     //判断用户是否登录过
     const user = getItem();
-    if (!user || !user._id) {
-      //用户没有登录跳转到登录页面
-      return this.props.history.replace('/login');
+    if (user && user._id) {
+      //在内存中存储用户信息
+      memory.user = user;
+      return this.props.history.replace('/home');
     }
-    //在内存中存储用户信息
-    memory.user = user;
   }
 
   onCollapse = (collapsed) => {
@@ -46,7 +43,11 @@ export default class Admin extends Component {
   }
 
   render() {
-    const {collapsed} =this.state;
+    if (!memory.user || !memory.user._id) {
+      //用户没有登录跳转到登录页面
+      return <Redirect to='/login' />;
+    }
+    const { collapsed } = this.state;
     const opacity = collapsed ? 0 : 1;
     return (
       <Layout style={{ minHeight: '100vh' }}>
@@ -55,12 +56,12 @@ export default class Admin extends Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
-          <LeftNav opacity={opacity}/>
+          <LeftNav opacity={opacity} />
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0, height: 100}}>
-              <HeadMain />
-          </Header> 
+          <Header style={{ background: '#fff', padding: 0, height: 100 }}>
+            <HeadMain />
+          </Header>
           <Content style={{ margin: '20px 16px' }}>
             <div style={{ padding: 24, background: '#fff', minHeight: 360, position: relative }}>
               <Switch>

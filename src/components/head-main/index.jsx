@@ -46,8 +46,8 @@ class HeadMain extends Component {
             .catch((err) => message.error(err, 2))
     }
 
-    componentWillUpdate() {
-        clearImmediate(this.intervalId);
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
     }
 
     getTitle = () => {
