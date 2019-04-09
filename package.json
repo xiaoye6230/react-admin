@@ -33,6 +33,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "braft-editor": "^2.2.9",
     "pubsub-js": "^1.7.0"
   },
   "proxy": "http://localhost:5000"

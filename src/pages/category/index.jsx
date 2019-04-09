@@ -93,6 +93,7 @@ export default class Category extends Component {
               showQuickJumper: true   //跑到指定页
             }
           }
+          rowKey='_id'
         />
         <Modal
           title='添加分类'
@@ -100,7 +101,7 @@ export default class Category extends Component {
           onOk={this.addCategory}
           onCancel={this.changeModal(false)}
           onText='确认'
-          cancelText="取消"
+          cancelText="取消"          
         >
           <AddCategoryForm categories={categories} wrappedComponentRef={this.createAddForm} />
         </Modal>

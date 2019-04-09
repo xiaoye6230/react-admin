@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 
 import Home from '../home';
 import Category from '../category';
-import Product from '../product';
+import Product from '../product/products';
 import User from '../user';
 import Role from '../role';
 import Bar from '../charts/bar';
@@ -73,7 +73,7 @@ export default class Admin extends Component {
                 <Route path="/charts/bar" component={Bar} />
                 <Route path="/charts/pie" component={Pie} />
                 <Route path="/charts/line" component={Line} />
-                <Redirect to='/home' />
+                {/* <Redirect to='/home' /> */}
               </Switch>
             </div>
           </Content>

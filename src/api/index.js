@@ -25,7 +25,11 @@ export const reqWeather = (city) => {
 }
 
 //请求分类列表数据函数
-export const reqGetCategories = (parentId) => ajax(prefix + '/manage/category/list', {parentId});
+export const reqGetCategories = (parentId) => ajax(prefix + '/manage/category/list', { parentId });
 
 //请求添加分类函数
-export const reqAddCategory = (parentId, categoryName) => ajax(prefix + '/manage/category/add',{parentId,categoryName},'POST');
+export const reqAddCategory = (parentId, categoryName) => ajax(prefix + '/manage/category/add', { parentId, categoryName }, 'POST');
+
+
+//请求添加商品分类函数
+export const reqGetProuducts = (pageNum, pageSize) => ajax(prefix + '/manage/product/list', { pageNum, pageSize });

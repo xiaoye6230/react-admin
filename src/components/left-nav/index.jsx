@@ -5,9 +5,6 @@ import { Menu, Icon } from 'antd';
 
 import menuList from '../../config/menu-config'
 import image from '../../assets/images/logo.png';
-// import Home from '../../pages/home';
-// import Category from '../../pages/category';
-// import Product from '../../pages/product';
 
 import './index.less';
 
