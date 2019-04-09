@@ -3,7 +3,7 @@ import { Card, Table, Button, Input, Icon, Select, message } from 'antd';
 import { Link } from 'react-router-dom';
 
 import MyButton from '../../components/my-button';
-import { reqGetProuducts } from '../../api';
+import { reqGetProducts } from '../../api';
 
 const Option = Select.Option;
 
@@ -14,7 +14,7 @@ export default class Product extends Component {
   }
 
   getProducts = async (pageNum, pageSize = 2) => {
-    const result = await reqGetProuducts(pageNum, pageSize);
+    const result = await reqGetProducts(pageNum, pageSize);
     if (result.status === 0) {
       this.setState({
         products: result.data.list,

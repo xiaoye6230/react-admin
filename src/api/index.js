@@ -30,6 +30,11 @@ export const reqGetCategories = (parentId) => ajax(prefix + '/manage/category/li
 //请求添加分类函数
 export const reqAddCategory = (parentId, categoryName) => ajax(prefix + '/manage/category/add', { parentId, categoryName }, 'POST');
 
+// 请求修改分类名称函数
+export const reqUpdateCategory = (categoryId, categoryName) => ajax(prefix + '/manage/category/update', {categoryId, categoryName}, 'POST');
 
 //请求添加商品分类函数
-export const reqGetProuducts = (pageNum, pageSize) => ajax(prefix + '/manage/product/list', { pageNum, pageSize });
+export const reqGetProducts = (pageNum, pageSize) => ajax(prefix + '/manage/product/list', { pageNum, pageSize });
+
+//请求添加分类函数
+export const reqAddProduct = (product) => ajax(prefix + '/manage/product/add', product, 'POST');
